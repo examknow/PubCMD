@@ -1,0 +1,64 @@
+#################################################################################################################################################################
+# PubCMD.tcl 6.0 README
+################################################################################################################################################################
+#ComputerTech
+#IRC Irc.mindforge.org #ComputerTech123
+#EMAIL COMPUTERTECH312@GMAIL.COM
+#GitHub  https://github.com/computertech312
+#################################################################################################################################################################
+#COMMANDS# (each of the following command will have the set trigger in front of it, e.g ?ban , if the trigger was ? thats how it would look like#
+
+ban         (bans a user via channel)
+
+unban       (unbans a user via channel)
+
+mute        (sets +b and -v if the user has voice)
+
+unmute      (sets -b and +v if the user had voice)
+
+voice       (sets +v on a user)
+
+devoice     (sets -v on a user)
+
+rehash      (rehashes the bot)
+
+restart     (restarts the bot)
+
+op          (sets +o on a user)
+
+deop        (sets -o on a user)
+
+die         (terminates the bot)
+
+ignore add  (adds a user/hostmask to the ignore list)
+
+ignore del  (removes a user from the ignore list)
+
+kick        (kicks a user from the channel)
+
+kickban     (kicks and sets +b on a user)
+
+link        (links to a specified bot)
+
+unlink      (unlinks from a specified bot)
+
+say         (this makes the bot say to a specified channel) use /msg (botnick) say (message)
+
+topic       (this changes the topic of the channel)
+
+join        (makes the bot join the specified channel)
+
+part        (makes the bot part the specified channel)
+
+chanset     (sets the channels bot internal settings)
+
+nick        (changes the bots nick)
+
+mode        (sets channel modes)
+
+pubhelp     (displays all pubcmd commands)
+
+#################################################################################################################################################################
+
+
+
