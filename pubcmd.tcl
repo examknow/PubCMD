@@ -70,23 +70,22 @@ if {[matchattr $nick $topflag]} {
  
 
 proc do_op {nick uhost hand chan text} {
-set onick "[lindex [split $text] 0 ]"
 
-if {![llength [split $text]]} {
-   putquick "mode $chan +o $nick"
-} else {
-putquick "mode $chan +o $onick"
+putquick "mode $chan +o $nick"
 }
-}
+
 
 
 proc do_deop {nick uhost hand chan text} {
 set donick "[lindex [split $text] 0 ]"
-
+if {![botisop $chan]} {
+		putquick "privmsg $chan :I'm not op'd"
+		return 0
+	}
 if {![llength [split $text]]} {
-   putquick "mode $chan -o $nick"
+   putnow "mode $chan -o $nick"
 } else {
-putquick "mode $chan -o $donick"
+putnow "mode $chan -o $donick"
 }
 }
 
@@ -101,7 +100,7 @@ if {![botisop $chan]} {
 		putkick $chan $nick "Banning The Bot Wont Be Tolerated"
 	}
     if {[matchattr [nick2hand $bnick] n]} {
-		putquick "privmsg $chan :I won't ban an owner!"
+		putquick "PRIVMSG $chan :I won't ban an owner!"
 		putkick $chan $nick "Never Ban The Owner"
 	}
     if {[onchan $bnick $chan]} {
@@ -122,7 +121,7 @@ if {![botisop $chan]} {
 if {[onchan $denick $chan]} {
           set host "[maskhost $denick![getchanhost $denick $chan] 2]"
           putquick "mode $chan -b $host"
-       putquick "privmsg $chan :$denick Has Been Unbanned"
+       putquick "PRIVMSG $chan :$denick Has Been Unbanned"
         } else {
           putnow "mode $chan -b $denick"
    }
@@ -143,13 +142,13 @@ if {[isbotnick $mnick]} {
           return 0
        }
 if {[matchattr [nick2hand $mnick] n]} {
-          putquick "privmsg $chan :$nick, Banning The Onwer Wont Be Tolerated"
+          putquick "PRIVMSG $chan :$nick, Banning The Onwer Wont Be Tolerated"
           return 0 
       }
 if {[onchan $mnick $chan]} {
           set host "[maskhost $mnick![getchanhost $mnick $chan] 2]"
           putquick "mode  $chan +b ~q:$host"
-       putquick "privmsg $chan :$mnick Has Been Muted"
+       putquick "PRIVMSG $chan :$mnick Has Been Muted"
         } else {
           putquick "mode $chan +b ~q:$mnick"
           putquick "privmsg $chan : $mnick has been Muted"
@@ -171,12 +170,12 @@ if {[isbotnick $unmnick]} {
           return 0
        }
 if {[matchattr [nick2hand $unmnick] n]} {
-          putquick "privmsg $chan :$nick, Banning The Onwer Wont Be Tolerated"
+          putquick "PRIVMSG $chan :$nick, Banning The Onwer Wont Be Tolerated"
        }
 if {[onchan $unmnick $chan]} {
           set host "[maskhost $unmnick![getchanhost $unmnick $chan] 2]"
           putquick "mode  $chan -b ~q:$host"
-       putquick "privmsg $chan :$unmnick Has Been Unmuted"
+       putquick "PRIVMSG $chan :$unmnick Has Been Unmuted"
         } else {
           putquick "mode $chan -b ~q:$unmnick"
           putquick "privmsg $chan : $unmnick has been Unmuted"
@@ -218,12 +217,12 @@ putquick "mode $chan -v $dvnick"
 }
 
 proc do_rehash {nick uhost hand chan text} {
-  putquick "privmsg $chan :Rehash Requested By $nick Rehashing..."
+  putquick "PRIVMSG $chan :Rehash Requested By $nick Rehashing..."
     rehash
 }
 
 proc do_restart {nick uhost hand chan text} {
-  putquick "privmsg $chan :Restart Requested By $nick Restarting...)"
+  putquick "PRIVMSG $chan :Restart Requested By $nick Restarting...)"
    restart
   }
 
@@ -260,13 +259,13 @@ if {[isbotnick $kbnick]} {
           return 0
        }
 if {[matchattr [nick2hand $kbnick] n]} {
-          putquick "privmsg $chan :$nick, Banning The Onwer Wont Be Tolerated"
+          putquick "PRIVMSG $chan :$nick, Banning The Onwer Wont Be Tolerated"
        }
 if {[onchan $kbnick $chan]} {
           set host "[maskhost $kbnick![getchanhost $kbnick $chan] 2]"
           putquick "kick $chan $kbnick $text"
           putquick "mode $chan +b $host"
-       putquick "privmsg $chan :$kbnick Has Been Banned"
+       putquick "PRIVMSG $chan :$kbnick Has Been Banned"
         
    }
 }
@@ -347,7 +346,7 @@ proc getpubcmd {} {
 		return 0
 	}
        set 2unlink [lindex [split $text] 0 ]
-       puthelp "privmsg $chan :Unlinking From $2unlink"
+       puthelp "Privmsg $chan :Unlinking From $2unlink"
         unlink $2unlink
     }
 
@@ -367,7 +366,7 @@ proc do_say {nick uhost hand args} {
      return 0
      }
      set msg [lrange [lindex $args 0] 1 end]
-     putquick "privmsg $chan :$msg"
+     putquick "PRIVMSG $chan :$msg"
       }
     }
 
@@ -535,7 +534,7 @@ proc pPingTimeout {} {
   set schan [lindex $vPingOperation 0]
   set snick [lindex $vPingOperation 1]
   set tnick [lindex $vPingOperation 2]
-  putserv "privmsg $schan :\00304Error\003 (\00314$snick\003) operation timed out attempting to ping \00307$tnick\003"
+  putserv "PRIVMSG $schan :\00304Error\003 (\00314$snick\003) operation timed out attempting to ping \00307$tnick\003"
   unset vPingOperation
   return 0
 }
@@ -554,7 +553,7 @@ proc pPingCtcrReceive {nick uhost hand dest keyword txt} {
       if {[expr {round($elapsed / 0.5)}] > 10} {set red 10} else {set red [expr {round($elapsed / 0.5)}]}
       set green [expr {10 - $red}]
       set output \00303[string repeat $char $green]\003\00304[string repeat $char $red]\003
-      putserv "privmsg $schan :\00310Compliance\003 (\00314$snick\003) $output $elapsed seconds from \00307$tnick\003"
+      putserv "PRIVMSG $schan :\00310Compliance\003 (\00314$snick\003) $output $elapsed seconds from \00307$tnick\003"
       unset vPingOperation
       pPingKillutimer
     }
@@ -578,18 +577,18 @@ proc pPingPubCommand {nick uhost hand channel txt} {
       0 {set tnick $nick}
       1 {set tnick [string trim $txt]}
       default {
-        putserv "privmsg $channel :\00304Error\003 (\00314$nick\003) correct syntax is \00307!ping ?target?\003"
+        putserv "PRIVMSG $channel :\00304Error\003 (\00314$nick\003) correct syntax is \00307!ping ?target?\003"
         return 0
       }
     }
     if {![info exists vPingOperation]} {
       if {[regexp -- {^[\x41-\x7D][-\d\x41-\x7D]*$} $tnick]} {
         set time1 [expr {[clock clicks -milliseconds] % 16777216}]
-        putquick "privmsg $tnick :\001PING [unixtime]\001"
+        putquick "PRIVMSG $tnick :\001PING [unixtime]\001"
         utimer 20 pPingTimeout
         set vPingOperation [list $channel $nick $tnick $time1]
-      } else {putserv "privmsg $channel :\00304Error\003 (\00314$nick\003) \00307$tnick\003 is not a valid nick"}
-    } else {putserv "privmsg $channel :\00304Error\003 (\00314$nick\003) a ping operation is still pending, please wait"}
+      } else {putserv "PRIVMSG $channel :\00304Error\003 (\00314$nick\003) \00307$tnick\003 is not a valid nick"}
+    } else {putserv "PRIVMSG $channel :\00304Error\003 (\00314$nick\003) a ping operation is still pending, please wait"}
   }
   return 0
 }
@@ -601,7 +600,7 @@ proc pPingRawOffline {from keyword txt} {
     set snick [lindex $vPingOperation 1]
     set tnick [lindex $vPingOperation 2]
     if {[string equal -nocase $tnick [lindex [split $txt] 1]]} {
-      putserv "privmsg $schan :\00304Error\003 (\00314$snick\003) \00307$tnick\003 is not online"
+      putserv "PRIVMSG $schan :\00304Error\003 (\00314$snick\003) \00307$tnick\003 is not online"
       unset vPingOperation
       pPingKillutimer
     }
