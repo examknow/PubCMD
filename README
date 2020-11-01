@@ -17,29 +17,29 @@
 
 Command       Syntax                     Explanation
  
-Ban           !ban (nick)                Set's +b on the user's hostmask
+Ban           !ban (nick)                Sets +b on the user's hostmask
 
-Unban         !unban (nick)              Set's -b on the user's hostmask
+Unban         !unban (nick)              Sets -b on the user's hostmask
 
-Mute          !mute (nick)               Set's +b on the user's hostmask
+Mute          !mute (nick)               Sets +b on the user's hostmask
 
-Unmute        !unmute (nick)             Set's -b on the user's hostmask
+Unmute        !unmute (nick)             Sets -b on the user's hostmask
 
-Voice         !voice (nick)              Set's +v on the user
+Voice         !voice (nick)              Sets +v on the user
 
-Devoice       !devoice (nick)            Set's -v on the user
+Devoice       !devoice (nick)            Sets -v on the user
  
-Rehash        !rehash                    Rehash's the bot
+Rehash        !rehash                    Rehashes the bot
 
-Restart       !restart                   Restart's the bot
+Restart       !restart                   Restarts the bot
 
-Op            !op (nick)                 Set's +o on the user
+Op            !op (nick)                 Sets +o on the user
 
-Deop          !deop (nick)               Set's -o on the user
+Deop          !deop (nick)               Sets -o on the user
 
 Die           !Die
 
-Ignore add    !ignore add (nick)         Add's the user's hostmask to the bot's ignore list
+Ignore add    !ignore add (nick)         Adds the user's hostmask to the bot's ignore list
 
 Ignore Del    !ignore del (nick)         Removes the user's hostmask from the bot's ignore list
 
@@ -49,9 +49,9 @@ Kick          !kick (nick)               Kicks the user off the channel
 
 Kickban       !kickban (nick)            Kicks and set's +b on the user
 
-Link          !link (bot)                Link's the bot to the specified bot
+Link          !link (bot)                Links the bot to the specified bot
 
-Unlink        !unlink (bot)              Unlink's the bot from the specified bot
+Unlink        !unlink (bot)              Unlinks the bot from the specified bot
 
 Say           /msg (bot) !say (message)  Makes the bot say the specified message to the specified channel
 
@@ -59,13 +59,13 @@ Join          !join (channel)            Makes the bot join the specified channe
 
 Part          !part (channel)            Makes the bot part the specified channel
 
-Chanset       !chanset (option)          Set's the specifed option on the bot
+Chanset       !chanset (option)          Sets the specifed option on the bot
 
 Pubhelp       !pubhelp                   Makes the bot show you the PubCmd help list
 
 Nick          !nick (new nick)           Changes the bot's nick to the specifed one
 
-Mode          !mode (mode)               Set's channel modes that your specified
+Mode          !mode (mode)               Sets channel modes that your specified
 
 Calc          !calc (equasion)           Calculates the given equasion 
 
