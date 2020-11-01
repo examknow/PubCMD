@@ -1,5 +1,5 @@
 #################################################################################################################################################################
-# PubCMD.tcl 5.1.0 README
+# PubCMD.tcl 2.0.0 README
 ################################################################################################################################################################
 #ComputerTech
 #IRC Irc.mindforge.org #ComputerTech123
@@ -7,10 +7,9 @@
 #GitHub  https://github.com/computertech312
 #################################################################################################################################################################
 #Note
-#Thanks to Suntop for his fancy and calc script for Version 7.0
-#Thanks to Bds for finding errors and bugs for Version 7.0
-#
-#Version 7.0 Fixed Bugs and added calc and fancy
+#Thanks to Arfer, of his ping script
+#Thanks to BdS for finding and repairing bugs/errors
+#Thanks to Suntop for allowing use of his calc and fancy script
 #################################################################################################################################################################
 #Commands# 
 
