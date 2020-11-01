@@ -62,8 +62,6 @@ bind pub ${flag} ${pubcmd}ignores pub:ignores
 bind pub ${flag} ${pubcmd}addignore pub:addignore
 bind pub ${flag} ${pubcmd}delignore pub:delignore
 bind pub ${flag} ${pubcmd}ping pPingPubCommand
-bind pub ${flag} ${pubcmd}calc Falk.pub:calc
-bind pub ${flag} ${pubcmd}fancy Falk:fancy
 
 proc do_pub_help { nick uhost hand chan text } {
    global pubcmd
@@ -494,67 +492,5 @@ proc pPingRawOffline {from keyword text} {
 	}
 	return 0
 }
-
-proc Falk:fancy {ni u h ch t} {
-  global calc falk
-    if {![validuser $h]} { set nk(fl) "?" }
-	if {[matchattr $h n|n $c]} {
-		set nk(fl) "*"
-	} elseif {[matchattr $h m|m $c]} {
-		set nk(fl) "¤"
-	} elseif {[matchattr $h o|o $c]} {
-		set nk(fl) "@"
-	} elseif {[matchattr $h f|f $c]} {
-		set nk(fl) "+"
-	} else {
-		set nk(fl) "?"
-	}
-  if {[lindex $t 0] == ""} { putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)fancy ($falk(err) No word to fancy)" ;putsnot $ni "Error: Forgot to specify something to fancy didnt you? ;o)" ;return 0 }
-  foreach letter [split $t ""] {
-    set rand [randstring 1 {23456789}]
-    append total "\0030$rand$letter"
-  }
-  putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)fancy $total"
-  putmsg $ch "$total"
-  unset total
-}
-
-proc Falk.pub:calc {ni u h ch t} {
-  global calc botnick
-    if {![validuser $h]} { set nk(fl) "?" }
-	if {[matchattr $h n|n $c]} {
-		set nk(fl) "*"
-	} elseif {[matchattr $h m|m $c]} {
-		set nk(fl) "¤"
-	} elseif {[matchattr $h o|o $c]} {
-		set nk(fl) "@"
-	} elseif {[matchattr $h f|f $c]} {
-		set nk(fl) "+"
-	} else {
-		set nk(fl) "?"
-	}
-  set what "[lrange $t 0 end]"
-  set result "nothing"
-    if {($what == "") || ($what == "help") || ($what == "hjelp")} {
-      putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)help Calc"
-      putsnot $ni "--=={  -=>      Help for: $calc(char)Calc        <=-  }==--"
-      putsnot $ni "--=={      Usage: $calc(char)calc <num> <param> <num> }==--"
-      putsnot $ni "--=={  Calculate whatever you want...       }==--"
-      putsnot $ni "--=={  Ex: $calc(char)calc 5 + 5                      }==--"
-      putsnot $ni "--=={  Shows: <$botnick> Calc: 5 + 5 = 10     }==--"
-      putsnot $ni "--=={  OBS! Just a test script as of now!   }==--"
-      return 0
-    }
-
-  catch {
-  set result "[expr $what]"
-  } foo
-  if {($foo == "1")} { putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)Calc (Error: $what can not be calculated)" ;putchan $ch "$ni: Sorry, $what Can not be calculated! :o(" ;return 0 }
-  if {($result == "nothing")} { putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)Calc (Error: $what can not be calculated)" ;putchan $ch "$ni: Sorry, $what Can not be calculated! :o(" ;return 0 }
-  putlog "<<$nk(fl)$ni>> !$h! ($ch) $calc(char)Calc ($what = $result)"
-  putchan $ch "\0032Calc\003\037:\037\00312 $what \003=\0033 $result\003"
-  return 0
-}
-
 putlog "\00309PubCMD.tcl By ComputerTech Loaded\002"
 #################################################################################################################################################################
